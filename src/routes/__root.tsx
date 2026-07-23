@@ -106,6 +106,20 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+    useEffect(() => {
+    const script = document.createElement("script");
+
+    script.async = true;
+    script.src = "https://embed.tawk.to/6a61fa86bc2e4b1d4a977e5a/1ju7bl87j";
+    script.charset = "UTF-8";
+    script.setAttribute("crossorigin", "*");
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground">
