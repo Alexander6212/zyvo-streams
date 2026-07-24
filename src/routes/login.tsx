@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Reveal } from "@/components/reveal";
 import { GlowBackdrop } from "@/components/glow-backdrop";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -24,15 +26,26 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
 
-  const onSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!authLoading && user) navigate({ to: "/" });
+  }, [user, authLoading, navigate]);
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Placeholder — connect to Supabase Auth later
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Login flow ready", { description: "Connect Supabase to activate authentication." });
-    }, 700);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
+    if (error) {
+      toast.error("Login failed", { description: error.message });
+      return;
+    }
+    toast.success("Welcome back!");
+    navigate({ to: "/" });
   };
 
   return (
@@ -53,14 +66,14 @@ function LoginPage() {
               <Label htmlFor="email">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input id="email" type="email" required placeholder="you@example.com" className="pl-9 h-11 rounded-xl" />
+                <Input id="email" type="email" required placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="pl-9 h-11 rounded-xl" />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input id="password" type={show ? "text" : "password"} required placeholder="••••••••" className="pl-9 pr-10 h-11 rounded-xl" />
+                <Input id="password" type={show ? "text" : "password"} required placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-9 pr-10 h-11 rounded-xl" />
                 <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary" aria-label="Toggle password">
                   {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -69,7 +82,7 @@ function LoginPage() {
 
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
-                <Checkbox id="remember" /> Remember me
+                <Checkbox id="remember" defaultChecked /> Remember me
               </label>
               <a href="#" className="text-sm font-medium text-primary hover:underline">Forgot password?</a>
             </div>
