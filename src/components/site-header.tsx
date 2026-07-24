@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, Zap } from "lucide-react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { LogOut, Menu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const links = [
   { to: "/", label: "Home" },
@@ -16,6 +19,19 @@ const links = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error("Sign out failed", { description: error.message });
+      return;
+    }
+    toast.success("Signed out");
+    setOpen(false);
+    navigate({ to: "/" });
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 glass">
@@ -50,12 +66,25 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button asChild variant="ghost" className="rounded-full">
-            <Link to="/login">Login</Link>
-          </Button>
-          <Button asChild className="rounded-full bg-gradient-hero text-primary-foreground shadow-glow hover:opacity-95 border-0">
-            <Link to="/signup">Sign Up</Link>
-          </Button>
+          {user ? (
+            <>
+              <span className="text-sm text-foreground/70 max-w-[180px] truncate" title={user.email ?? undefined}>
+                {user.email}
+              </span>
+              <Button onClick={signOut} variant="outline" className="rounded-full gap-1.5">
+                <LogOut className="h-4 w-4" /> Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild variant="ghost" className="rounded-full">
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button asChild className="rounded-full bg-gradient-hero text-primary-foreground shadow-glow hover:opacity-95 border-0">
+                <Link to="/signup">Sign Up</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
@@ -78,12 +107,23 @@ export function SiteHeader() {
                 </Link>
               ))}
               <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
-                <Button asChild variant="outline" className="rounded-full">
-                  <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
-                </Button>
-                <Button asChild className="rounded-full bg-gradient-hero text-primary-foreground border-0">
-                  <Link to="/signup" onClick={() => setOpen(false)}>Sign Up</Link>
-                </Button>
+                {user ? (
+                  <>
+                    <p className="px-3 text-sm text-muted-foreground truncate">{user.email}</p>
+                    <Button onClick={signOut} variant="outline" className="rounded-full gap-1.5">
+                      <LogOut className="h-4 w-4" /> Sign out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button asChild variant="outline" className="rounded-full">
+                      <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
+                    </Button>
+                    <Button asChild className="rounded-full bg-gradient-hero text-primary-foreground border-0">
+                      <Link to="/signup" onClick={() => setOpen(false)}>Sign Up</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </SheetContent>
