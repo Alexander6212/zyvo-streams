@@ -45,7 +45,7 @@ function ContactPage() {
             { icon: MessageCircle, title: "WhatsApp", desc: "Chat instantly", cta: "Open chat", href: "https://wa.me/10000000000", color: "#25D366" },
             { icon: Send, title: "Telegram", desc: "Join our support group", cta: "Open Telegram", href: "https://t.me/zyvoiptv", color: "#0088cc" },
             { icon: MessagesSquare, title: "Live Chat", desc: "Powered by Tawk.to", cta: "Start chat", href: "#tawk-to", color: "#00BFFF" },
-            { icon: Mail, title: "Email", desc: "support@zyvoiptv.com", cta: "Send email", href: "mailto:support@zyvoiptv.com", color: "#00E5FF" },
+            { icon: Mail, title: "Email", desc: "jattbhutta321@gmail.com", cta: "Send email", href: "mailto:jattbhutta321@gmail.com", color: "#00E5FF" },
           ].map((c, i) => (
             <Reveal key={c.title} delay={i * 80}>
               <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="block h-full rounded-3xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-glow hover:border-primary/30">
