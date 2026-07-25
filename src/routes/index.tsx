@@ -278,15 +278,23 @@ function HomePage() {
         </Reveal>
         <Reveal className="lg:order-1">
           <div className="grid grid-cols-3 gap-3">
-            {[1,2,3,4,5,6].map((i) => (
-              <div key={i} className="aspect-[2/3] rounded-2xl shadow-card overflow-hidden relative group cursor-pointer" style={{
-                background: `linear-gradient(${135 + i*20}deg, oklch(0.72 0.18 235), oklch(0.85 0.16 200))`
-              }}>
+            {[
+              { src: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&auto=format&fit=crop&q=70", title: "Skyline", rating: "8.1" },
+              { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=70", title: "Nightfall", rating: "8.2" },
+              { src: "https://images.unsplash.com/photo-1518676590629-3dcba9c5a555?w=500&auto=format&fit=crop&q=70", title: "Aurora", rating: "8.3" },
+              { src: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&auto=format&fit=crop&q=70", title: "Wildlands", rating: "8.4" },
+              { src: "https://images.unsplash.com/photo-1596727147705-61a532a659bd?w=500&auto=format&fit=crop&q=70", title: "Ember", rating: "8.5" },
+              { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=70", title: "Reel", rating: "8.6" },
+            ].map((m) => (
+              <div key={m.title} className="aspect-[2/3] rounded-2xl shadow-card overflow-hidden relative group cursor-pointer bg-card">
+                <img src={m.src} alt={`${m.title} poster`} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                 <div className="absolute inset-0 grid place-items-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
                   <Play className="h-8 w-8 text-white" fill="currentColor" />
                 </div>
-                <div className="absolute bottom-2 left-2 right-2 text-[10px] font-semibold text-white/90 flex items-center gap-1">
-                  <Star className="h-3 w-3" fill="currentColor" /> 8.{i}
+                <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+                  <span className="text-[11px] font-semibold truncate">{m.title}</span>
+                  <span className="text-[10px] font-bold flex items-center gap-0.5"><Star className="h-3 w-3" fill="currentColor" /> {m.rating}</span>
                 </div>
               </div>
             ))}
