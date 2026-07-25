@@ -82,6 +82,18 @@ function FaqPage() {
             </Reveal>
           ))}
         </div>
+        <Reveal delay={100}>
+          <div className="mt-14 rounded-3xl border border-border bg-gradient-soft p-8 text-center">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-gradient-hero shadow-glow">
+              <Mail className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="mt-4 text-xl font-bold">Still have questions?</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Our team replies within a few hours, 7 days a week.</p>
+            <Button asChild className="mt-5 rounded-full bg-gradient-hero border-0 text-primary-foreground shadow-glow">
+              <a href="mailto:jattbhutta321@gmail.com">Email jattbhutta321@gmail.com</a>
+            </Button>
+          </div>
+        </Reveal>
       </section>
     </div>
   );
