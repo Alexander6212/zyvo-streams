@@ -70,7 +70,7 @@ function HomePage() {
               </Reveal>
               <Reveal delay={80}>
                 <h1 className="mt-6 text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05]">
-                  Your Entertainment. <br />
+                  ZYVO IPTV — Your Entertainment. <br />
                   <span className="gradient-text">Anywhere. Anytime.</span>
                 </h1>
               </Reveal>
