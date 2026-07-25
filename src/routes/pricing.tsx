@@ -11,7 +11,9 @@ export const Route = createFileRoute("/pricing")({
       { name: "description", content: "ZYVO IPTV subscription plans from £9.99. Choose 1, 3, 6 months or 1 year — 7000+ channels, 40000+ VOD, HD/FHD/UHD and 24/7 support." },
       { property: "og:title", content: "Pricing — ZYVO IPTV" },
       { property: "og:description", content: "1, 3, 6 months and yearly IPTV plans. Best value on the 6 Months plan." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/pricing" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/pricing" }],
   }),
   component: PricingPage,
 });
