@@ -13,7 +13,9 @@ export const Route = createFileRoute("/channels")({
       { name: "description", content: "Browse 20,000+ live channels across sports, movies, news, kids, music and international networks." },
       { property: "og:title", content: "Live Channels — ZYVO IPTV" },
       { property: "og:description", content: "20,000+ live channels across every category and country." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/channels" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/channels" }],
   }),
   component: ChannelsPage,
 });
