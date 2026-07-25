@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://azure-view-global.lovable.app/sitemap.xml
