@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       { title: "ZYVO IPTV — Premium Live TV & VOD Streaming" },
       { name: "description", content: "20,000+ live channels, 60,000+ VOD titles, 99.9% uptime. Stream in 4K on any device — start your free ZYVO IPTV trial today." },
       { property: "og:title", content: "ZYVO IPTV — Premium Live TV & VOD Streaming" },
-      { property: "og:description", content: "20,000+ channels, 60,000+ VOD, 99.9% uptime. Stream anywhere, anytime." },
+      { property: "og:description", content: "20,000+ live channels, 60,000+ VOD titles, 99.9% uptime. Stream in 4K on any device — start your free ZYVO IPTV trial today." },
     ],
   }),
   component: HomePage,
