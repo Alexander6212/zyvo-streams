@@ -350,19 +350,19 @@ function HomePage() {
         </Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
-            { name: "Basic", price: "9.99", features: ["10,000+ channels", "SD & HD quality", "1 device", "Email support"] },
-            { name: "Standard", price: "14.99", popular: true, features: ["20,000+ channels", "60,000+ VOD", "Full HD quality", "2 devices", "24/7 support"] },
-            { name: "Premium", price: "19.99", features: ["Everything in Standard", "4K Ultra HD", "5 devices", "Priority support", "Adult category"] },
+            { name: "3 Months", price: "25", period: "/ 3 mo", features: ["7000+ Channels", "40000+ VOD", "HD / FHD / UHD*", "24/7 Live Chat Support"] },
+            { name: "6 Months", price: "40", period: "/ 6 mo", popular: true, features: ["7000+ Channels", "40000+ VOD", "ALL SPORTS AVAILABLE", "24/7 Live Chat Support"] },
+            { name: "1 Year", price: "65", period: "/ yr", features: ["7000+ Channels", "40000+ VOD", "TV Guide (EPG)", "24/7 Live Chat Support"] },
           ].map((p, i) => (
             <Reveal key={p.name} delay={i * 100}>
               <div className={`relative h-full rounded-3xl border p-8 transition-all hover:-translate-y-1 ${p.popular ? "border-primary/40 bg-gradient-hero text-primary-foreground shadow-glow" : "border-border bg-card shadow-soft hover:shadow-glow"}`}>
                 {p.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-soft">MOST POPULAR</div>
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-soft">BEST VALUE</div>
                 )}
                 <div className={`text-sm font-semibold ${p.popular ? "text-white/90" : "text-primary"}`}>{p.name}</div>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-5xl font-extrabold">${p.price}</span>
-                  <span className={p.popular ? "text-white/80" : "text-muted-foreground"}>/mo</span>
+                  <span className="text-5xl font-extrabold">£{p.price}</span>
+                  <span className={p.popular ? "text-white/80" : "text-muted-foreground"}>{p.period}</span>
                 </div>
                 <ul className="mt-6 space-y-3 text-sm">
                   {p.features.map((f) => (
