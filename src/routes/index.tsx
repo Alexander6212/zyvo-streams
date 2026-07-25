@@ -97,32 +97,68 @@ function HomePage() {
               </Reveal>
             </div>
 
-            {/* Visual */}
+            {/* Visual — Poster collage */}
             <Reveal delay={200}>
               <div className="relative">
                 <div className="relative rounded-3xl bg-gradient-hero p-1 shadow-glow">
                   <div className="rounded-[22px] bg-background p-4 md:p-6">
-                    <div className="flex items-center gap-1.5 pb-3">
-                      <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+                    <div className="flex items-center justify-between pb-3">
+                      <div className="flex items-center gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+                      </div>
+                      <span className="text-[10px] font-semibold text-muted-foreground tracking-widest">TRENDING NOW</span>
                     </div>
-                    <div className="relative aspect-video overflow-hidden rounded-2xl bg-gradient-hero animate-gradient">
-                      <div className="absolute inset-0 grid place-items-center">
-                        <div className="grid h-20 w-20 place-items-center rounded-full bg-white/95 shadow-glow animate-pulse-glow">
-                          <Play className="h-8 w-8 text-primary" fill="currentColor" />
+
+                    {/* Collage grid */}
+                    <div className="grid grid-cols-3 gap-2.5">
+                      {[
+                        { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=70", title: "Nightfall", tag: "4K", rating: "9.1" },
+                        { src: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&auto=format&fit=crop&q=70", title: "Skyline", tag: "HD", rating: "8.4", live: true },
+                        { src: "https://images.unsplash.com/photo-1596727147705-61a532a659bd?w=500&auto=format&fit=crop&q=70", title: "Ember", tag: "4K", rating: "8.8" },
+                        { src: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&auto=format&fit=crop&q=70", title: "Wildlands", tag: "HD", rating: "7.9" },
+                        { src: "https://images.unsplash.com/photo-1518676590629-3dcba9c5a555?w=500&auto=format&fit=crop&q=70", title: "Aurora", tag: "4K", rating: "9.3" },
+                        { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=70", title: "Reel", tag: "HD", rating: "8.1" },
+                      ].map((p, i) => (
+                        <div
+                          key={p.title}
+                          className="group relative aspect-[2/3] overflow-hidden rounded-xl shadow-card cursor-pointer"
+                          style={{ animationDelay: `${i * 80}ms` }}
+                        >
+                          <img
+                            src={p.src}
+                            alt={`${p.title} poster`}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                          {p.live && (
+                            <span className="absolute top-1.5 left-1.5 rounded-full bg-red-500/95 backdrop-blur px-1.5 py-0.5 text-[8px] font-bold text-white flex items-center gap-1">
+                              <span className="h-1 w-1 rounded-full bg-white animate-pulse" /> LIVE
+                            </span>
+                          )}
+                          <span className="absolute top-1.5 right-1.5 rounded-md bg-black/50 backdrop-blur px-1.5 py-0.5 text-[8px] font-bold text-white">
+                            {p.tag}
+                          </span>
+                          <div className="absolute inset-0 grid place-items-center opacity-0 group-hover:opacity-100 bg-black/30 transition-opacity">
+                            <div className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-glow">
+                              <Play className="h-4 w-4 text-primary" fill="currentColor" />
+                            </div>
+                          </div>
+                          <div className="absolute bottom-1.5 left-1.5 right-1.5 flex items-center justify-between text-white">
+                            <span className="text-[9px] font-semibold truncate">{p.title}</span>
+                            <span className="text-[9px] font-bold flex items-center gap-0.5">
+                              <Star className="h-2 w-2" fill="currentColor" /> {p.rating}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white/95 text-xs">
-                        <span className="rounded-full bg-black/40 backdrop-blur px-2.5 py-1 flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" /> LIVE · 4K UHD
-                        </span>
-                        <span className="rounded-full bg-black/40 backdrop-blur px-2.5 py-1">CH 128</span>
-                      </div>
+                      ))}
                     </div>
+
                     <div className="mt-4 grid grid-cols-4 gap-2">
-                      {["Sports", "Movies", "News", "Kids"].map((c, i) => (
-                        <div key={c} className="rounded-xl bg-secondary p-2.5 text-center text-xs font-medium hover:bg-primary/10 transition-colors" style={{ animationDelay: `${i * 100}ms` }}>{c}</div>
+                      {["Sports", "Movies", "News", "Kids"].map((c) => (
+                        <div key={c} className="rounded-xl bg-secondary p-2.5 text-center text-xs font-medium hover:bg-primary/10 transition-colors">{c}</div>
                       ))}
                     </div>
                   </div>
@@ -138,6 +174,7 @@ function HomePage() {
                 </div>
               </div>
             </Reveal>
+
           </div>
         </div>
       </section>
