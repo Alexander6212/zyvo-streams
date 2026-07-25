@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Mail } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { GlowBackdrop } from "@/components/glow-backdrop";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
