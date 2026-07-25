@@ -16,7 +16,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get 24/7 support from ZYVO IPTV via WhatsApp, Telegram, live chat, or email." },
       { property: "og:title", content: "Contact & Support — ZYVO IPTV" },
       { property: "og:description", content: "24/7 support via WhatsApp, Telegram, live chat, or email." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/contact" }],
   }),
   component: ContactPage,
 });
