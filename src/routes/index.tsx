@@ -12,11 +12,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ZYVO IPTV — Premium Live TV & VOD Streaming" },
-      { name: "description", content: "20,000+ live channels, 60,000+ VOD titles, 99.9% uptime. Stream in 4K on any device — start your free ZYVO IPTV trial today." },
-      { property: "og:title", content: "ZYVO IPTV — Premium Live TV & VOD Streaming" },
-      { property: "og:description", content: "20,000+ live channels, 60,000+ VOD titles, 99.9% uptime. Stream in 4K on any device — start your free ZYVO IPTV trial today." },
+      { title: "ZYVO IPTV — Premium Live TV & Entertainment" },
+      { name: "description", content: "ZYVO IPTV: 20,000+ live TV channels and 60,000+ movies & series on demand in HD and 4K. Start streaming premium IPTV on any device today." },
+      { property: "og:title", content: "ZYVO IPTV — Premium Live TV & Entertainment" },
+      { property: "og:description", content: "20,000+ live TV channels and 60,000+ movies & series on demand in HD and 4K." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ae15bd48-5346-4259-a843-17f87be0202f/id-preview-7e8d411e--ad55243b-e088-419f-80df-117e9ed3a521.lovable.app-1784984181638.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ae15bd48-5346-4259-a843-17f87be0202f/id-preview-7e8d411e--ad55243b-e088-419f-80df-117e9ed3a521.lovable.app-1784984181638.png" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/" }],
   }),
   component: HomePage,
 });
@@ -66,7 +70,7 @@ function HomePage() {
               </Reveal>
               <Reveal delay={80}>
                 <h1 className="mt-6 text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05]">
-                  Your Entertainment. <br />
+                  ZYVO IPTV — Your Entertainment. <br />
                   <span className="gradient-text">Anywhere. Anytime.</span>
                 </h1>
               </Reveal>

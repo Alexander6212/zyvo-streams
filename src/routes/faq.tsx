@@ -12,7 +12,21 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: "Answers to common questions about ZYVO IPTV: pricing, devices, quality, trials, and setup." },
       { property: "og:title", content: "FAQ — ZYVO IPTV" },
       { property: "og:description", content: "Everything you need to know about ZYVO IPTV." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/faq" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/faq" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          { "@type": "Question", name: "What is ZYVO IPTV?", acceptedAnswer: { "@type": "Answer", text: "ZYVO IPTV is a premium internet TV service streaming 20,000+ live channels and 60,000+ movies and shows in HD and 4K on every device." } },
+          { "@type": "Question", name: "Do you offer a free trial?", acceptedAnswer: { "@type": "Answer", text: "Yes — a 24-hour trial with full access to channels and VOD, no credit card required." } },
+          { "@type": "Question", name: "Which devices are supported?", acceptedAnswer: { "@type": "Answer", text: "Smart TVs (Samsung, LG, Sony), Android TV, Fire TV, iOS, Android, Windows, Mac, MAG devices, and Chromecast." } },
+        ],
+      }),
+    }],
   }),
   component: FaqPage,
 });

@@ -11,7 +11,9 @@ export const Route = createFileRoute("/devices")({
       { name: "description", content: "ZYVO IPTV runs on Smart TV, Android TV, Fire TV, iOS, Android, Windows, Mac, and MAG devices. Setup in minutes." },
       { property: "og:title", content: "Supported Devices — ZYVO IPTV" },
       { property: "og:description", content: "Compatible with every major streaming device." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/devices" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/devices" }],
   }),
   component: DevicesPage,
 });

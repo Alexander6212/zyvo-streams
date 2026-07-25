@@ -11,7 +11,9 @@ export const Route = createFileRoute("/vod")({
       { name: "description", content: "60,000+ movies and series on demand. New releases added daily in HD and 4K." },
       { property: "og:title", content: "VOD Library — ZYVO IPTV" },
       { property: "og:description", content: "60,000+ movies and series on demand — updated daily." },
+      { property: "og:url", content: "https://azure-view-global.lovable.app/vod" },
     ],
+    links: [{ rel: "canonical", href: "https://azure-view-global.lovable.app/vod" }],
   }),
   component: VodPage,
 });
