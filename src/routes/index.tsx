@@ -278,15 +278,23 @@ function HomePage() {
         </Reveal>
         <Reveal className="lg:order-1">
           <div className="grid grid-cols-3 gap-3">
-            {[1,2,3,4,5,6].map((i) => (
-              <div key={i} className="aspect-[2/3] rounded-2xl shadow-card overflow-hidden relative group cursor-pointer" style={{
-                background: `linear-gradient(${135 + i*20}deg, oklch(0.72 0.18 235), oklch(0.85 0.16 200))`
-              }}>
+            {[
+              { src: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&auto=format&fit=crop&q=70", title: "Skyline", rating: "8.1" },
+              { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format&fit=crop&q=70", title: "Nightfall", rating: "8.2" },
+              { src: "https://images.unsplash.com/photo-1518676590629-3dcba9c5a555?w=500&auto=format&fit=crop&q=70", title: "Aurora", rating: "8.3" },
+              { src: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&auto=format&fit=crop&q=70", title: "Wildlands", rating: "8.4" },
+              { src: "https://images.unsplash.com/photo-1596727147705-61a532a659bd?w=500&auto=format&fit=crop&q=70", title: "Ember", rating: "8.5" },
+              { src: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=70", title: "Reel", rating: "8.6" },
+            ].map((m) => (
+              <div key={m.title} className="aspect-[2/3] rounded-2xl shadow-card overflow-hidden relative group cursor-pointer bg-card">
+                <img src={m.src} alt={`${m.title} poster`} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                 <div className="absolute inset-0 grid place-items-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
                   <Play className="h-8 w-8 text-white" fill="currentColor" />
                 </div>
-                <div className="absolute bottom-2 left-2 right-2 text-[10px] font-semibold text-white/90 flex items-center gap-1">
-                  <Star className="h-3 w-3" fill="currentColor" /> 8.{i}
+                <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+                  <span className="text-[11px] font-semibold truncate">{m.title}</span>
+                  <span className="text-[10px] font-bold flex items-center gap-0.5"><Star className="h-3 w-3" fill="currentColor" /> {m.rating}</span>
                 </div>
               </div>
             ))}
@@ -342,19 +350,19 @@ function HomePage() {
         </Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
-            { name: "Basic", price: "9.99", features: ["10,000+ channels", "SD & HD quality", "1 device", "Email support"] },
-            { name: "Standard", price: "14.99", popular: true, features: ["20,000+ channels", "60,000+ VOD", "Full HD quality", "2 devices", "24/7 support"] },
-            { name: "Premium", price: "19.99", features: ["Everything in Standard", "4K Ultra HD", "5 devices", "Priority support", "Adult category"] },
+            { name: "3 Months", price: "25", period: "/ 3 mo", features: ["7000+ Channels", "40000+ VOD", "HD / FHD / UHD*", "24/7 Live Chat Support"] },
+            { name: "6 Months", price: "40", period: "/ 6 mo", popular: true, features: ["7000+ Channels", "40000+ VOD", "ALL SPORTS AVAILABLE", "24/7 Live Chat Support"] },
+            { name: "1 Year", price: "65", period: "/ yr", features: ["7000+ Channels", "40000+ VOD", "TV Guide (EPG)", "24/7 Live Chat Support"] },
           ].map((p, i) => (
             <Reveal key={p.name} delay={i * 100}>
               <div className={`relative h-full rounded-3xl border p-8 transition-all hover:-translate-y-1 ${p.popular ? "border-primary/40 bg-gradient-hero text-primary-foreground shadow-glow" : "border-border bg-card shadow-soft hover:shadow-glow"}`}>
                 {p.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-soft">MOST POPULAR</div>
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-soft">BEST VALUE</div>
                 )}
                 <div className={`text-sm font-semibold ${p.popular ? "text-white/90" : "text-primary"}`}>{p.name}</div>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-5xl font-extrabold">${p.price}</span>
-                  <span className={p.popular ? "text-white/80" : "text-muted-foreground"}>/mo</span>
+                  <span className="text-5xl font-extrabold">£{p.price}</span>
+                  <span className={p.popular ? "text-white/80" : "text-muted-foreground"}>{p.period}</span>
                 </div>
                 <ul className="mt-6 space-y-3 text-sm">
                   {p.features.map((f) => (

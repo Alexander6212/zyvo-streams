@@ -41,7 +41,7 @@ export function SiteFooter() {
               <li><Link to="/faq" className="hover:text-primary">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
               <li><a href="#" className="hover:text-primary">Live Chat</a></li>
-              <li><a href="mailto:support@zyvoiptv.com" className="hover:text-primary">Email</a></li>
+              <li><a href="mailto:jattbhutta321@gmail.com" className="hover:text-primary">Email</a></li>
             </ul>
           </div>
 
@@ -59,8 +59,8 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:support@zyvoiptv.com" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary">
-                  <Mail className="h-4 w-4" /> support@zyvoiptv.com
+                <a href="mailto:jattbhutta321@gmail.com" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary">
+                  <Mail className="h-4 w-4" /> jattbhutta321@gmail.com
                 </a>
               </li>
             </ul>
