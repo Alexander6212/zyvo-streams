@@ -74,6 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "ZYVO IPTV" },
       { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#00BFFF" },
+      { name: "google-site-verification", content: "wmOzoF2MYzyqIgaeGmRMbqKDVbn_q-PbfJkuZbhICX0" },
       { property: "og:site_name", content: "ZYVO IPTV" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
