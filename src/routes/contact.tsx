@@ -25,10 +25,22 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [loading, setLoading] = useState(false);
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const fd = new FormData(f);
     setLoading(true);
-    setTimeout(() => { setLoading(false); toast.success("Message sent", { description: "Our team will get back to you shortly." }); }, 700);
+    const { supabase } = await import("@/integrations/supabase/client");
+    const { error } = await supabase.from("support_messages").insert({
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      subject: String(fd.get("subject") ?? ""),
+      message: String(fd.get("message") ?? ""),
+    });
+    setLoading(false);
+    if (error) { toast.error("Failed to send", { description: error.message }); return; }
+    toast.success("Message sent", { description: "Our team will get back to you shortly." });
+    f.reset();
   };
 
   return (
@@ -69,11 +81,11 @@ function ContactPage() {
               <p className="mt-2 text-sm text-muted-foreground">Fill in the form and we'll reply within a few hours.</p>
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" required className="h-11 rounded-xl" /></div>
-                  <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" required className="h-11 rounded-xl" /></div>
+                  <div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" name="name" required className="h-11 rounded-xl" /></div>
+                  <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" name="email" type="email" required className="h-11 rounded-xl" /></div>
                 </div>
-                <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" required className="h-11 rounded-xl" /></div>
-                <div className="space-y-2"><Label htmlFor="message">Message</Label><Textarea id="message" required rows={5} className="rounded-xl" /></div>
+                <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" name="subject" required className="h-11 rounded-xl" /></div>
+                <div className="space-y-2"><Label htmlFor="message">Message</Label><Textarea id="message" name="message" required rows={5} className="rounded-xl" /></div>
                 <Button type="submit" disabled={loading} className="w-full h-11 rounded-xl bg-gradient-hero border-0 text-primary-foreground shadow-glow">{loading ? "Sending..." : "Send message"}</Button>
               </form>
             </div>
