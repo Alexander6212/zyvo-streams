@@ -81,11 +81,11 @@ function ContactPage() {
               <p className="mt-2 text-sm text-muted-foreground">Fill in the form and we'll reply within a few hours.</p>
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" required className="h-11 rounded-xl" /></div>
-                  <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" required className="h-11 rounded-xl" /></div>
+                  <div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" name="name" required className="h-11 rounded-xl" /></div>
+                  <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" name="email" type="email" required className="h-11 rounded-xl" /></div>
                 </div>
-                <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" required className="h-11 rounded-xl" /></div>
-                <div className="space-y-2"><Label htmlFor="message">Message</Label><Textarea id="message" required rows={5} className="rounded-xl" /></div>
+                <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" name="subject" required className="h-11 rounded-xl" /></div>
+                <div className="space-y-2"><Label htmlFor="message">Message</Label><Textarea id="message" name="message" required rows={5} className="rounded-xl" /></div>
                 <Button type="submit" disabled={loading} className="w-full h-11 rounded-xl bg-gradient-hero border-0 text-primary-foreground shadow-glow">{loading ? "Sending..." : "Send message"}</Button>
               </form>
             </div>
