@@ -25,10 +25,22 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [loading, setLoading] = useState(false);
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const fd = new FormData(f);
     setLoading(true);
-    setTimeout(() => { setLoading(false); toast.success("Message sent", { description: "Our team will get back to you shortly." }); }, 700);
+    const { supabase } = await import("@/integrations/supabase/client");
+    const { error } = await supabase.from("support_messages").insert({
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      subject: String(fd.get("subject") ?? ""),
+      message: String(fd.get("message") ?? ""),
+    });
+    setLoading(false);
+    if (error) { toast.error("Failed to send", { description: error.message }); return; }
+    toast.success("Message sent", { description: "Our team will get back to you shortly." });
+    f.reset();
   };
 
   return (
