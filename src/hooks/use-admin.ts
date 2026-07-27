@@ -11,15 +11,26 @@ export function useIsAdmin() {
     if (authLoading) return;
     if (!user) { setIsAdmin(false); return; }
     setIsAdmin(null);
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => { if (!cancelled) setIsAdmin(!!data); });
+    (async () => {
+      const { data: rpcData, error: rpcError } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "admin",
+      });
+      if (!cancelled && !rpcError && typeof rpcData === "boolean") {
+        setIsAdmin(rpcData);
+        return;
+      }
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!data);
+    })();
     return () => { cancelled = true; };
   }, [user, authLoading]);
+
 
   return { isAdmin, loading: authLoading || isAdmin === null, user };
 }
