@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /signup
 
 Sitemap: https://azure-view-global.lovable.app/sitemap.xml

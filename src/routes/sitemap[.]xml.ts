@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { createClient } from "@supabase/supabase-js";
 
 const BASE_URL = "https://azure-view-global.lovable.app";
 
 interface SitemapEntry {
   path: string;
+  lastmod?: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
@@ -21,14 +23,36 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/devices", changefreq: "monthly", priority: "0.7" },
           { path: "/faq", changefreq: "monthly", priority: "0.7" },
           { path: "/contact", changefreq: "monthly", priority: "0.6" },
-          { path: "/login", changefreq: "yearly", priority: "0.3" },
-          { path: "/signup", changefreq: "yearly", priority: "0.4" },
+          { path: "/blog", changefreq: "weekly", priority: "0.8" },
         ];
+
+        try {
+          const supabase = createClient(
+            process.env.SUPABASE_URL!,
+            process.env.SUPABASE_PUBLISHABLE_KEY!,
+            { auth: { persistSession: false, autoRefreshToken: false } },
+          );
+          const { data } = await supabase
+            .from("blog_posts")
+            .select("slug, updated_at, published_at")
+            .eq("published", true);
+          for (const p of data ?? []) {
+            entries.push({
+              path: `/blog/${(p as any).slug}`,
+              lastmod: ((p as any).updated_at ?? (p as any).published_at) || undefined,
+              changefreq: "monthly",
+              priority: "0.6",
+            });
+          }
+        } catch {
+          // if the DB is unreachable during build, still emit the static entries
+        }
 
         const urls = entries.map((e) =>
           [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
