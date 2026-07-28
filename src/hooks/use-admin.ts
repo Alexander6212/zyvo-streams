@@ -1,36 +1,48 @@
 import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./use-auth";
 
 export function useIsAdmin() {
-  const { user, loading: authLoading } = useAuth();
+  const { user: sessionUser, loading: authLoading } = useAuth();
+  const [verifiedUser, setVerifiedUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    if (authLoading) return;
-    if (!user) { setIsAdmin(false); return; }
+
+    if (authLoading) {
+      setIsAdmin(null);
+      return () => { cancelled = true; };
+    }
+
     setIsAdmin(null);
+
     (async () => {
-      const { data: rpcData, error: rpcError } = await supabase.rpc("has_role", {
-        _user_id: user.id,
-        _role: "admin",
-      });
-      if (!cancelled && !rpcError && typeof rpcData === "boolean") {
-        setIsAdmin(rpcData);
+      const { data: authData, error: authError } = await supabase.auth.getUser();
+      if (cancelled) return;
+
+      const currentUser = authError ? null : authData.user;
+      setVerifiedUser(currentUser);
+
+      if (!currentUser) {
+        setIsAdmin(false);
         return;
       }
+
       const { data } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id)
+        .eq("user_id", currentUser.id)
         .eq("role", "admin")
         .maybeSingle();
-      if (!cancelled) setIsAdmin(!!data);
+
+      if (!cancelled) setIsAdmin(data?.role === "admin");
     })();
+
     return () => { cancelled = true; };
-  }, [user, authLoading]);
+  }, [sessionUser?.id, authLoading]);
 
 
-  return { isAdmin, loading: authLoading || isAdmin === null, user };
+  return { isAdmin, loading: authLoading || isAdmin === null, user: verifiedUser ?? sessionUser };
 }
